@@ -1,49 +1,87 @@
-🏈 NFL Penalty Bias Analysis (2016–2025)
-Project 2 of 5 | Tools: Python · SQL · Power BI
+# 🏈 NFL Penalty Bias Analysis (2016–2025)
+### Project 2 of 5 | Tools: Python · SQL · Power BI
+
 ---
-The Origin Story
-A friend of mine — shoutout to Vyredrac — is a Detroit Lions fan. And like most Lions fans, he has a theory. Armed with YouTube highlight reels and the unshakeable confidence of someone who has watched their team suffer for decades, he insisted that Detroit gets more blown calls than any other team in the NFL.
+
+## The Origin Story
+
+A friend of mine — shoutout to **Vyredrac** — is a Detroit Lions fan. And like most Lions fans, he has a theory. Armed with YouTube highlight reels and the unshakeable confidence of someone who has watched their team suffer for decades, he insisted that Detroit gets more blown calls than any other team in the NFL.
+
 I could have just disagreed. Instead, I spent a significant number of hours building a multi-source data pipeline, writing Python scripts, querying SQLite databases, and building a three-page Power BI dashboard to find out.
+
 This is that project.
+
 ---
-The Question
+
+## The Question
+
 > *Do certain NFL teams consistently receive more game-altering penalties than others — and does the data support the Detroit Lions' reputation as the most officiated-against team in the league?*
+
 ---
-What I Found
-Short answer: Vyredrac is wrong. Detroit finished within 50 penalty yards of neutral officiating in 8 of the last 10 seasons. They are about as middle-of-the-road as it gets.
-But the data told a much more interesting story along the way.
-Key Findings
-🔴 New Orleans Saints are the most consistently penalized team over the last 10 seasons — not Detroit. They finished negative in nearly every season, bottoming out at nearly -400 net penalty yards in 2020 alone.
-🟢 Indianapolis Colts and Cincinnati Bengals benefited most from officiating over the same period — consistently on the positive side of the ledger.
-🏠 San Francisco 49ers get penalized the most heavily on the road compared to at home — the largest home/away split in the league. Meanwhile Philadelphia gets called more at home than anywhere else.
-😲 Kansas City Chiefs — arguably the most complained-about team for "getting all the calls" — sit almost perfectly neutral in the data. The narrative and the numbers don't match.
-📊 Defensive Pass Interference is by far the most called penalty leaguewide with 2,838 accepted calls over 10 seasons — nearly double the next most common penalty type.
-⚠️ Detroit's one bad year: 2024 was genuinely their worst officiated season at -131 net yards. So Vyredrac gets partial credit for the timing of his argument.
+
+## What I Found
+
+**Short answer: Vyredrac is wrong.** Detroit finished within 50 penalty yards of neutral officiating in 8 of the last 10 seasons. They are about as middle-of-the-road as it gets.
+
+**But the data told a much more interesting story along the way.**
+
+### Key Findings
+
+- 🔴 **New Orleans Saints** are the most consistently penalized team over the last 10 seasons — not Detroit. They finished negative in nearly every season, bottoming out at nearly **-400 net penalty yards in 2020** alone.
+
+- 🟢 **Indianapolis Colts and Cincinnati Bengals** benefited most from officiating over the same period — consistently on the positive side of the ledger.
+
+- 🏠 **San Francisco 49ers** get penalized the most heavily on the road compared to at home — the largest home/away split in the league. Meanwhile **Philadelphia** gets called more at home than anywhere else.
+
+- 😲 **Kansas City Chiefs** — arguably the most complained-about team for "getting all the calls" — sit almost perfectly neutral in the data. The narrative and the numbers don't match.
+
+- 📊 **Defensive Pass Interference** is by far the most called penalty leaguewide with 2,838 accepted calls over 10 seasons — nearly double the next most common penalty type.
+
+- ⚠️ **Detroit's one bad year**: 2024 was genuinely their worst officiated season at -131 net yards. So Vyredrac gets partial credit for the timing of his argument.
+
 ---
-Dashboard Preview
-Page 1 — Team Differentials
-Net penalty yard differential across all 32 teams + home vs away breakdown
+
+## Dashboard Preview
+
+### Page 1 — Team Differentials
+*Net penalty yard differential across all 32 teams + home vs away breakdown*
+
 ![Team Differential](PNG%20Files/TeamDifferential.png)
-Page 2 — Season by Season Trend
-Interactive line chart with team slicer — track any team's officiating trend across 10 seasons
+
+### Page 2 — Season by Season Trend
+*Interactive line chart with team slicer — track any team's officiating trend across 10 seasons*
+
 ![Season by Season Trend](PNG%20Files/SeasonBySeasonTrend.png)
-Page 3 — Deep Dive Analysis
-Penalty type breakdown by team + high leverage 4th quarter analysis + Lions spotlight
+
+### Page 3 — Deep Dive Analysis
+*Penalty type breakdown by team + high leverage 4th quarter analysis + Lions spotlight*
+
 ![Deep Dive](PNG%20Files/Deep%20Dive.png)
+
 ---
-Data Sources
-Source	Description	Seasons
-NFLPenalties.com	Season-level penalty summary by team — against count, beneficiary count, net yards, home/away splits	2016–2025
-nflverse (nflfastR)	Play-by-play data — every penalty play with quarter, score differential, win probability, and penalty type	2016–2025
+
+## Data Sources
+
+| Source | Description | Seasons |
+|--------|-------------|---------|
+| [NFLPenalties.com](https://www.nflpenalties.com) | Season-level penalty summary by team — against count, beneficiary count, net yards, home/away splits | 2016–2025 |
+| [nflverse (nflfastR)](https://github.com/nflverse/nflverse-data) | Play-by-play data — every penalty play with quarter, score differential, win probability, and penalty type | 2016–2025 |
+
 ---
-Tools & Tech Stack
-Tool	Purpose
-Python (pandas)	Data cleaning, combining 10 seasons of play-by-play CSVs, franchise relocation fixes (OAK→LV, SD→LAC)
-SQLite / DB Browser	Data transformation, aggregation, and query building
-Power BI Desktop	Interactive dashboard — 3 pages, 6 visualizations, conditional formatting, slicers
-Google Sheets	Manual data collection from NFLPenalties.com across 10 seasons
+
+## Tools & Tech Stack
+
+| Tool | Purpose |
+|------|---------|
+| **Python (pandas)** | Data cleaning, combining 10 seasons of play-by-play CSVs, franchise relocation fixes (OAK→LV, SD→LAC) |
+| **SQLite / DB Browser** | Data transformation, aggregation, and query building |
+| **Power BI Desktop** | Interactive dashboard — 3 pages, 6 visualizations, conditional formatting, slicers |
+| **Google Sheets** | Manual data collection from NFLPenalties.com across 10 seasons |
+
 ---
-Project Structure
+
+## Project Structure
+
 ```
 NFL Penalties Project/
 │
@@ -67,10 +105,14 @@ NFL Penalties Project/
     ├── SeasonBySeasonTrend.png
     └── Deep Dive.png
 ```
+
 ---
-SQL Highlights
+
+## SQL Highlights
+
 Six queries power this analysis. A sample:
-Net Penalty Differential by Team (All 10 Years)
+
+**Net Penalty Differential by Team (All 10 Years)**
 ```sql
 SELECT 
     Team,
@@ -83,7 +125,8 @@ FROM nfl_penalties_32_teams
 GROUP BY Team
 ORDER BY total_net_yards ASC;
 ```
-High Leverage Penalties — 4th Quarter, Within 8 Points
+
+**High Leverage Penalties — 4th Quarter, Within 8 Points**
 ```sql
 SELECT
     season,
@@ -98,31 +141,50 @@ WHERE qtr = 4
 GROUP BY season, penalty_team, penalty_type
 ORDER BY penalty_count DESC;
 ```
+
 ---
-Python Script
+
+## Python Script
+
 The `nfl_penalty_prep.py` script handles all raw data processing:
-Loops through 10 seasons of nflverse play-by-play CSVs
-Filters to accepted penalty plays only
-Keeps only the 15 relevant columns out of 370+
-Fixes franchise relocations (Oakland → Las Vegas, San Diego → LA Chargers)
-Outputs one clean combined CSV ready for SQL
+- Loops through 10 seasons of nflverse play-by-play CSVs
+- Filters to accepted penalty plays only
+- Keeps only the 15 relevant columns out of 370+
+- Fixes franchise relocations (Oakland → Las Vegas, San Diego → LA Chargers)
+- Outputs one clean combined CSV ready for SQL
+
 This was my first Python script — written and executed as part of building this project from scratch.
+
 ---
-Methodology Notes
-"Blown call" proxy: There is no official NFL blown call database. This analysis uses accepted penalty differentials as a proxy — specifically net penalty yards (penalties against minus penalties drawn). This is an intentional simplification in service of using clean, verifiable data.
-Franchise relocations: Oakland Raiders data is merged with Las Vegas Raiders. San Diego Chargers data is merged with LA Chargers. No teams were added to the league in the 2016–2025 window.
-Declined and offsetting penalties are excluded from all counts per NFLPenalties.com methodology.
-High leverage definition: 4th quarter plays with a score differential of 8 points or fewer (one possession game).
+
+## Methodology Notes
+
+- **"Blown call" proxy**: There is no official NFL blown call database. This analysis uses accepted penalty differentials as a proxy — specifically net penalty yards (penalties against minus penalties drawn). This is an intentional simplification in service of using clean, verifiable data.
+- **Franchise relocations**: Oakland Raiders data is merged with Las Vegas Raiders. San Diego Chargers data is merged with LA Chargers. No teams were added to the league in the 2016–2025 window.
+- **Declined and offsetting penalties** are excluded from all counts per NFLPenalties.com methodology.
+- **High leverage definition**: 4th quarter plays with a score differential of 8 points or fewer (one possession game).
+
 ---
-About This Project
-This is Project 2 of 5 in my data analytics portfolio. Each project is designed to demonstrate a different combination of tools and analytical approaches.
-Project	Topic	Tools
-Project 1	Video Game Sales Analysis	SQL · Power BI
-Project 2	NFL Penalty Bias Analysis	Python · SQL · Power BI
-Projects 3–5	Coming Soon	Tableau · Python · and more
+
+## About This Project
+
+This is **Project 2 of 5** in my data analytics portfolio. Each project is designed to demonstrate a different combination of tools and analytical approaches.
+
+| Project | Topic | Tools |
+|---------|-------|-------|
+| Project 1 | Video Game Sales Analysis | SQL · Power BI |
+| **Project 2** | **NFL Penalty Bias Analysis** | **Python · SQL · Power BI** |
+| Projects 3–5 | Coming Soon | Tableau · Python · and more |
+
 ---
-Connect
-GitHub: brycegardner90
-LinkedIn: Bryce Gardner
+
+## Connect
+
+**GitHub**: [brycegardner90](https://github.com/brycegardner90)
+
+**LinkedIn**: [Bryce Gardner](https://www.linkedin.com/in/bryce-gardner-16a889183)
+
 ---
-Built because a friend had a take. The data had other plans.
+
+*Built because a friend had a take. The data had other plans.*
+
